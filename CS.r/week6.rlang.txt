@@ -1,0 +1,18 @@
+corn <- factor(rep(c("corn", "rice", "wheat"), each = 3))
+
+fert <- factor(rep(c("f1", "f2", "nf"), times = 3))
+
+corn
+
+y <- c(6, 5, 6,
+  4, 4.2, 5,
+  5, 4.4, 5.5)
+
+
+
+results <- data.frame(y, corn, fert)
+
+
+fit <- aov(y ~ fert+corn, data = results)        
+
+summary(fit)

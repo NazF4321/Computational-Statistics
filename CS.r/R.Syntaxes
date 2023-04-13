@@ -1,0 +1,55 @@
+> v <- TRUE
+> print(class(v))
+[1] "logical">
+
+>v <- 23.5
+>print(class(v))
+[1] "numeric"
+
+v <- 2L
+print(class(v))
+[1] "numeric"
+
+v <- 2+5i
+print(class(v))
+[1] "complex"
+
+v <- "TRUE"
+print(class(v))
+[1] "character"
+
+v <- charToRaw("Hello")
+print(class(v))
+[1] "raw"
+
+vectors:
+apple <- c('red','green',"yellow")
+print(apple)
+print(class(apple))
+
+output:
+       [1] "red" "green" "yellow"
+       [1] "character"
+	   
+Lists:
+list1 <- list(c(2,5,3),21.3,sin)
+print(list1)
+
+
+output:
+        [[1]]
+        [1] 2 5 3
+
+        [[2]]
+        [1] 21.3
+		
+Matrices:
+M = matrix( c('a','a','b','c','b','a'), nrow = 2, ncol = 3, byrow = TRUE)
+print(M)
+
+output:
+[,1] [,2] [,3]
+[1,] "a" "a" "b"
+[2,] "c" "b" "a"
+
+	   

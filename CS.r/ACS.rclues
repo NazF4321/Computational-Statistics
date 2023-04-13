@@ -1,0 +1,160 @@
+Week 4:
+
+x=c(3,2,4,3,1,4,2,4,3,5)
+y=c(7,5,8,6,7,8,9,7,5,7)
+t.test(x,y)
+
+
+week5:
+car=data.frame(Model=c("Maruti 800","Maruti Zen","Marurti Alto"),
+               Region1 =c(28,5,50),Region2=c(15,6,41),Region3=c(47,50,9))
+library(ggpubr)
+x <- which(names(car) == "Model") # name of grouping variable
+y <- which(names(car) == "Region1" # names of variables to test
+           | names(car) == "Region2"
+           | names(car) == "Region3")
+method <- "t.test" # one of "wilcox.test" or "t.test"
+paired <- FALSE # if paired make sure that in the dataframe you have first all individuals at T1, then all individuals again at T2
+# Edit until here
+
+
+# Edit at your own risk
+for (i in y) {
+  for (j in x) {
+    ifelse(paired == TRUE,
+           p <- ggpaired(car,
+                         x = colnames(car[j]), y = colnames(car[i]),
+                         color = colnames(car[j]), line.color = "gray", line.size = 0.4,
+                         palette = "npg",
+                         legend = "none",
+                         xlab = colnames(car[j]),
+                         ylab = colnames(car[i]),
+                         add = "jitter"
+           ),
+           p <- ggboxplot(car,
+                          x = colnames(car[j]), y = colnames(car[i]),
+                          color = colnames(car[j]),
+                          palette = "npg",
+                          legend = "none",
+                          add = "jitter"
+           )
+    )
+    #  Add p-value
+    print(p + stat_compare_means(aes(label = paste0(..method.., ", p-value = ", ..p.format.., " (", ifelse(..p.adj.. >= 0.05, "not significant", ..p.signif..), ")")),
+                                 method = method,
+                                 paired = paired,
+                                 # group.by = NULL,
+                                 ref.group = NULL
+    ))
+  }
+}
+
+
+week6:
+y <- c(6, 5, 6, 
+       4, 4.2, 5,
+       5, 4.4, 5.5)
+  
+# y is the months the crops were healthy
+results <- data.frame(y, corn, fert)
+   
+fit <- aov(y ~ fert+corn, data = results)                 
+summary(fit)
+
+
+week7:
+sale=data.frame(sdrinks=c(90000,88000,93000,98000,96000,95000,93000,82000,75000,78000,77000,75000),
+                cclot=c(1000,920,1100,1300,1200,1250,1230,830,770,790,780,760))
+library("ggpubr")
+
+ggqqplot(sale$sdrinks, ylab = "SDRINKS")
+ggqqplot(sale$cclot, ylab = "CLOTHES")
+res <- cor.test(sale$sdrinks, sale$cclot, 
+                method = "pearson")
+res
+
+
+week8:
+df <- read.csv("https://stats.idre.ucla.edu/stat/data/binary.csv")
+str(df
+sum(is.na(df))
+summary(df)
+xtabs(~ admit +rank ,data=df)
+df$rank <- as.factor(df$rank)
+logit <- glm(admit ~ gre+gpa+rank,data=df,family="binomial")
+summary(logit)
+x <- data.frame(gre=790,gpa=3.8,rank=as.factor(1))
+p<- predict(logit,x)
+p
+
+
+week11:
+tdata=c(71,70,69,68,64,65,72,78,75,75,75,70)
+tData=ts(tdata, start = 1,end = 12)
+tData
+class(tData)
+plot(tData)
+library(forecast)
+smodel=HoltWinters(tData,beta = FALSE,gamma = FALSE,alpha = 0.1)
+smodel
+spred=predict(smodel,n.ahead = 10)
+spred
+summary(smodel)
+plot(smodel)
+Data=data("AirPassengers")
+AirPassengers
+class(AirPassengers)
+
+sum(is.na(AirPassengers))
+plot(AirPassengers)
+
+tsdata <- ts(AirPassengers, frequency = 12)
+
+ddata <- decompose(tsdata, "multiplicative")
+
+plot(ddata)
+
+plot(AirPassengers)
+
+abline(reg=lm(AirPassengers~time(AirPassengers)))
+
+mymodel <- auto.arima(AirPassengers)
+
+mymodel
+
+myforecast <- forecast(mymodel, level=c(95), h=10*12)
+
+plot(myforecast)
+
+
+Week 12 :
+
+a=c(75,60,73,66,81)
+b=c(90,72,103,82,78)
+ram=dataframe(group=rep(("a","b"),each=5,name=c(a,b))
+result=wilcox.test(name~group,data=ram,paired="true",alternative="less")
+print(result)
+
+
+output:
+wilcox signed rank exact test
+data:name by group
+v=1;p-valuw=0.0625;alpha=0.05
+p>alpha:we accept the null hypothesis
+alternate hypo true location shift is less than 0
+
+
+
+WEEK9:
+ reg <- lm(y ~ x1+x2,x3, data=dataset)
+ summary(reg)
+ 
+ VIF(lm(x1 ~ x2+x3, data=dataset))
+ VIF(lm(x2 ~ x1+x3, data=dataset))
+ VIF(lm(x3 ~ x2+x1, data=dataset))
+
+
+
+
+
+
